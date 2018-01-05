@@ -207,7 +207,7 @@
     <DefineConstants>$(DefineConstants);DEVELOPBRANCH</DefineConstants>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>keys.snk</AssemblyOriginatorKeyFile>

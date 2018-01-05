@@ -168,6 +168,7 @@ namespace NiL.JS.Core
 
         internal bool _debugging;
         public bool Debugging { get { return _debugging; } set { _debugging = value; } }
+
         public event DebuggerCallback DebuggerCallback;
 
         public bool Running
@@ -228,6 +229,8 @@ namespace NiL.JS.Core
 
         internal Context(Context prototype, bool createFields, Function owner)
         {
+
+            ThrowIfStackIsFull();
             _owner = owner;
             if (prototype != null)
             {
@@ -249,6 +252,16 @@ namespace NiL.JS.Core
         public static void ResetGlobalContext()
         {
             _DefaultGlobalContext.ResetContext();
+        }
+
+        internal void ThrowIfStackIsFull()
+        {
+            if (currentContextStack == null)
+                return;
+
+            var limit = 1000;
+            if (currentContextStack.Count >= limit)
+                throw new JSException(new RangeError("Stack Overflow"));
         }
 
         internal bool Activate()

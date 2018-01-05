@@ -176,15 +176,15 @@ namespace NiL.JS
         /// <summary>
         /// Run the script
         /// </summary>
-        public void Run()
+        public JSValue Run()
         {
             if (Code == "")
-                return;
+                return null;
             
             try
             {
                 Context.Activate();
-                _root.Evaluate(Context);
+                return _root.Evaluate(Context) ?? Context._lastResult ?? JSValue.notExists;
             }
             finally
             {
@@ -196,7 +196,7 @@ namespace NiL.JS
         /// Run the script with time limit
         /// </summary>
         /// <param name="timeLimitInMilliseconds">Time limit</param>
-        public void Run(int timeLimitInMilliseconds)
+        public JSValue Run(int timeLimitInMilliseconds)
         {
             var start = Environment.TickCount;
             var oldDebugValue = Context.Debugging;
@@ -210,7 +210,7 @@ namespace NiL.JS
 
             try
             {
-                Run();
+                return Run();
             }
             finally
             {

@@ -23,7 +23,7 @@ namespace NiL.JS.Core.Functions
     }
 
     [Prototype(typeof(Function), true)]
-    internal sealed class MethodProxy : Function
+    public sealed class MethodProxy : Function
     {
         private delegate object WrapperDelegate(object target, Context initiator, Expressions.Expression[] arguments, Arguments argumentsObject);
 
